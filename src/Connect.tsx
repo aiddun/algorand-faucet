@@ -119,6 +119,7 @@ const Connect = () => {
 
       setLoading(true)
 
+
       // Get provided accounts
       const { accounts } = payload.params[0];
       const address = accounts[0];
@@ -126,11 +127,15 @@ const Connect = () => {
       fetch("https://ar-backend.aiddun.repl.co/api/tap", {
         method: "POST", body: JSON.stringify({
           "address": address
-        })
+        }),
+        headers: {
+          'Content-Type': 'application/json'
+        }
       }).then((res) => res.json()).then(json => {
         if (json.error) setError(`Sorry, ${json.error}`)
-        if (json.txid) setTxid(json.txid)})
-        setLoading(false)
+        if (json.txid) setTxid(json.txid)
+      })
+      setLoading(false)
     });
 
     connector.on("session_update", (error, payload) => {

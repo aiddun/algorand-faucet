@@ -129,8 +129,8 @@ const Connect = () => {
         })
       }).then((res) => res.json()).then(json => {
         if (json.error) setError(`Sorry, ${json.error}`)
-        else if (json.txid) setTxid(json.txid)})
-
+        if (json.txid) setTxid(json.txid)})
+        setLoading(false)
     });
 
     connector.on("session_update", (error, payload) => {
